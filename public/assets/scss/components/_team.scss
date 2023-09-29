@@ -1,0 +1,230 @@
+/*
+************
+*************************
+14. team
+******************************************************* 
+*************************************************************** */
+@use '../abstracts/mixins' as *;
+@use '../abstracts/variables' as *;
+
+.team-active {
+  padding-bottom: 80px;
+}
+.team-img {
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+  img {
+    filter: grayscale(100%);
+    @include transition(.3s);
+  }
+}
+
+
+.team-social-icon {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0px;
+  width: calc(100% - 80px);
+  background-color: var(--clr-theme-primary);
+  height: 50px;
+  line-height: 50px;
+  padding: 0;
+  text-align: center;
+  z-index: 1;
+  opacity: 0;
+  visibility: hidden;
+  border-top-right-radius: 5px;
+  border-top-left-radius: 5px;
+  margin: 0 auto;
+  @include transition(.4s);
+  a {
+    display: inline-block;
+    font-size: 16px;
+    margin: 0 5px;
+    color: #fff;
+    &:hover {
+      color: #ea6b08;
+    }
+  }
+}
+
+.team-content {
+  position: relative;
+  z-index: 1;
+  margin-top: -25px;
+  padding: 20px 30px 0;
+  text-align: center;
+  &-title {
+    font-size: 22px;
+    margin-bottom: 5px;
+    position: relative;
+    z-index: 1;
+  }
+  &-subtitle {
+    font-size: 16px;
+    display: block;
+    color: var(--clr-theme-primary);
+    font-weight: 500;
+    position: relative;
+    z-index: 1;
+  }
+  &::before {
+    position: absolute;
+    content: '';
+    left: 0px;
+    top: 0px;
+    right: 0px;
+    bottom: 25px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    @include transition(.5s);
+    z-index: -1;
+  }
+  @media #{$xs}{
+    padding: 20px 20px 0;
+  }
+}
+.middle-content {
+  .list {
+    position: absolute; 
+    left: 0px;
+    right: 0px;
+    opacity: 0;
+    margin-top: 14px;
+    @include transition(.5s);
+    opacity: 0;
+    li {
+      position: relative;
+      display: block;
+      i {
+        margin-right: 10px;
+        color: #fff;
+      }
+      a {
+        display: inline-block;
+        color: #fff;
+        font-size: 16px;
+        margin-bottom: 5px;
+        &:hover {
+          color: #ea6b08;
+        } 
+      }
+    }
+  }
+}
+.btn-box {
+  position: relative;
+  text-align: center;
+  margin-top: 20px;
+  @include transition(.5s);
+  .read-more {
+    i { 
+        font-size: 20px;
+        margin-left: 10px;
+    }
+  }
+}
+.team-item .team-content .gear-icon {
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	opacity: 0;
+	width: 101px;
+	height: 97px;
+	background: url(../img/team/gear.png);
+	background-repeat: no-repeat;
+  @include transition(.5s);
+}
+.team-item:hover, .team-content-wrapper.team-grid-content .swiper-slide-active {
+    .team-img {
+      img {
+        filter: grayscale(0%);
+      }
+    }
+    .middle-content .list {
+      opacity: 1;
+    }
+    .btn-box {
+        transform: translateY(65px);
+    }
+    .team-content{
+      &-title {
+        color: #fff;
+        &:hover a {
+          color: #ea6b08;
+        }
+      }
+      &-subtitle {
+        color: #fff;
+      }
+
+      &::before {
+        bottom: -35px;
+        border-color: #333;
+        background-color: #333;
+      }
+    }
+    .team-content .gear-icon {
+      opacity: 1;
+    }
+
+    .team-social-icon {
+      bottom: 25px;
+      opacity: 1;
+      visibility: visible;
+    }
+}
+
+.team-active-2 {
+  .active {
+    .team-img {
+      img {
+        filter: grayscale(0%);
+      }
+    }
+    .middle-content .list {
+      opacity: 1;
+    }
+    .btn-box {
+        transform: translateY(65px);
+    }
+    .team-content{
+      &-title {
+        color: #fff;
+        &:hover a {
+          color: #ea6b08;
+        }
+      }
+      &-subtitle {
+        color: #fff;
+      }
+
+      &::before {
+        bottom: -35px;
+        border-color: #333;
+        background-color: #333;
+      }
+    }
+    .team-content .gear-icon {
+      opacity: 1;
+    }
+
+    .team-social-icon {
+      bottom: 25px;
+      opacity: 1;
+      visibility: visible;
+    }
+  }
+}
+.team-content-wrapper .swiper-wrapper {
+  margin-bottom: 70px;
+}
+.team-details-social {
+  .inner-social {
+    display: flex;
+    flex-wrap: wrap;
+    grid-gap: 10px 0;
+  }
+}

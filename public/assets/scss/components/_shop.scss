@@ -1,0 +1,112 @@
+/*
+************
+*************************
+19. shop
+******************************************************* 
+*************************************************************** */
+@use '../abstracts/mixins' as *;
+@use '../abstracts/variables' as *;
+
+
+.shop-item {
+    background: #fff;
+    @include transition(.3s);
+    box-shadow: 0 13px 29px rgba(0,0,0,0.05);
+    &:hover {
+      .shop-cart-icon {
+        bottom: 0;
+      }
+    }
+  }
+  .shop-img {
+    position: relative;
+    @include transition(.3s);
+    background-color: #D9E9E9;
+    z-index: 1;
+    overflow: hidden;
+  }
+  .shop-content-title {
+    font-size: 22px;
+    margin-bottom: 6px;
+    line-height: 1.3;
+    &:hover a {
+        color: var(--clr-theme-primary);
+    }
+  }
+  .shop-content-price a {
+    display: inline-block;
+    color: var(--clr-body-heading);
+    font-size: 20px;
+    font-weight: 400;
+    font-family: "Rubik", sans-serif;
+  }
+  .shop-content-rating a {
+    display: inline-block;
+    font-size: 15px;
+    color: var(--clr-theme-primary);
+    margin-right: 3px;
+  }
+  .shop-content-rating {
+    margin-bottom: 10px;
+  }
+  .shop-content {
+    padding: 30px 20px;
+    text-align: center;
+  }
+
+  .shop-cart-icon {
+    position: absolute;
+    bottom: -60px;
+    left: 0;
+    right: 0;
+    z-index: 1;
+    transition: 0.4s;
+    a {
+      width: 100%;
+      display: block;
+      height: 50px;
+      line-height: 50px;
+      font-size: 14px;
+      text-transform: uppercase;
+      text-align: center;
+      background-color: var(--clr-theme-primary);
+      color: var(--clr-common-white);
+      &:hover {
+        background-color: var(--clr-common-black);
+        color: var(--clr-common-white);
+      }
+      i {
+        display: inline-block;
+        margin-right: 5px;
+        font-size: 16px;
+      }
+  }
+}
+
+.product__filter-count {
+  & > span {
+    display: inline-block;
+    margin-right: 10px;
+  }
+}
+.shop-sorting-wrapper {
+	background-color: #D9E9E9;
+  padding: 15px 20px;
+  padding-bottom: 0px;
+}
+.product__result {
+  p {
+    text-transform: uppercase;
+    font-weight: 500;
+    color: var(--clr-body-heading);
+  }
+}
+.nice-select:active, .nice-select.open, .nice-select:focus {
+	border-color: #e8e8e8;
+}
+.nice-select::after {
+  width: 7px;
+  height: 7px;
+  border-bottom: 1px solid #999;
+  border-right: 1px solid #999;
+}

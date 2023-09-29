@@ -1,0 +1,109 @@
+/*
+************
+*************************
+23. map
+******************************************************* 
+*************************************************************** */
+@use '../abstracts/mixins' as *;
+@use '../abstracts/variables' as *;
+
+
+.location-common {
+    position: absolute;
+    width: 20px;
+    height: 34px;
+    background: transparent;
+    border-radius: 50%;
+    transition: 0.3s;
+    cursor: pointer;
+  }
+  .location-inner {
+    position: absolute;
+    width: 350px;
+    height: 100px;
+    top: -46px;
+    left: 40px;
+    box-shadow: 0px 16px 32px 0px rgba(0, 0, 0, 0.04);
+    transform: translateY(10px);
+    @include transition(.3s);
+    opacity: 0;
+    visibility: hidden;
+    display: flex;
+}
+.location-common.active .location-inner {
+	opacity: 1;
+	visibility: visible;
+	transform: translateY(0px);
+}
+  .location-inner img {
+    width: 100px;
+    flex: 0 0 100px;
+  }
+  .location-contact {
+    width: 100%;
+    padding: 25px;
+    background-color: #fff;
+    box-shadow: 0px 16px 32px 0px rgba(0, 0, 0, 0.04);
+    li {    
+      margin-bottom: 15px;
+      line-height: 1;
+      span {
+        font-size: 16px;
+        font-weight: 400;
+        &:hover {
+          a {
+            color: var(--clr-theme-primary);
+          }
+        }
+      }
+      i {
+        margin-right: 10px;
+      }
+    }
+  }
+
+  .location-common.location-5 {
+	right: 21.6%;
+	bottom: 21%;
+  @media (max-width: 1599px) {
+    display: none;
+  }
+}
+.location-common.location-1 {
+	top: 34%;
+	left: 18.1%;
+  @media #{$lg}{
+    .location-inner {
+      top: -20px;
+    }
+  }
+  @media #{ $md}{
+    .location-inner {
+      top: -20px;
+    }
+  }
+  @media (max-width: 575px) {
+    display: none;
+  }
+}
+.location-common.location-2 {
+	top: 17%;
+    left: 44.1%;
+    @media (max-width: 767px) {
+      display: none;
+    }
+}
+.location-common.location-3 {
+	top: 44.5%;
+    left: 52.4%;
+    @media (max-width: 991px) {
+      display: none;
+    }
+}
+.location-common.location-4 {
+    top: 29%;
+    right: 26.1%;
+    @media (max-width: 1399px) {
+      display: none;
+    }
+}

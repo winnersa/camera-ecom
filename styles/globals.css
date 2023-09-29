@@ -1,0 +1,112 @@
+.onsafe-cart-not-found {
+    max-width: 500px;
+    margin: 80px auto;
+}
+@media (max-width: 767px) {
+    .onsafe-cart-not-found {
+        max-width: 500px;
+        margin: 20px auto;
+    }
+}
+.onsafe-cart-not-found img {
+    filter: hue-rotate(-175deg);
+}
+.onsafe-alert-danger {
+    color: #ff2f42;
+    font-size: 13px;
+    display: block;
+    margin-top: 5px;
+    font-weight: 600;
+}
+.contact-form > .row > *:not(:last-child) {
+    margin-bottom: 20px;
+}
+
+.contact-form > .row > *:not(:last-child) input, .contact-form > .row > *:not(:last-child) textarea {
+    margin-bottom: 0;
+}
+
+
+/* delatable css here */
+nav.onsafe-mobile-sidebar {
+    position: fixed;
+    right: 0;
+    top: 0;
+    width: 300px;
+    height: 100%;
+    background: #f8f8f8;
+    z-index: 9;
+    padding: 30px;
+}
+nav.onsafe-mobile-sidebar > ul {
+    padding: 20px
+}
+nav.onsafe-mobile-sidebar ul li a {
+    display: block;
+}
+
+nav.onsafe-mobile-sidebar ul li {
+    margin-bottom: 10px;
+    overflow: hidden;
+}
+
+nav.onsafe-mobile-sidebar ul {
+    color: #fff;
+    background: orangered;
+}
+
+nav.onsafe-mobile-sidebar ul ul {
+    margin-top: 10px;
+    background: blue;
+    margin: 0;
+    color: #fff;
+    transition: all .3s;
+    opacity: 0;
+    visibility: hidden;
+}
+nav.onsafe-mobile-sidebar ul ul.active {
+    height: auto;
+    opacity: 1;
+    visibility: visible;
+}
+nav.onsafe-mobile-sidebar ul li {
+    position: relative;
+}
+
+nav.onsafe-mobile-sidebar ul li .has-plus-icon {
+    position: absolute;
+    right: 0;
+    font-size: 18px;
+    font-weight: 500;
+    top: 0;
+}
+.offcanvas-overlay.visible {
+    opacity: 1;
+    visibility: visible;
+}
+.product__filter-count select {
+    background: transparent;
+    border: 0;
+    color: #777777;
+}
+.product__filter-count select:focus {
+    outline: none;
+}
+img.no-post-found-img {
+    max-width: 500px;
+    display: block;
+    margin: 50px auto;
+    margin-top: 30px;
+    width: 100%;
+}
+
+.sidebar-info.side-info .sidebar-contact-title {
+    color: #fff;
+}
+.sidebar-logo img {
+    max-width: 160px;
+}
+.cart-total-box-2 select.shipping {
+    float: right;
+    border: 1px solid #eee;
+}

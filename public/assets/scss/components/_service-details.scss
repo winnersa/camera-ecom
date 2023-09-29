@@ -1,0 +1,236 @@
+/*
+************
+*************************
+08. service details
+******************************************************* 
+*************************************************************** */
+@use '../abstracts/mixins' as *;
+@use '../abstracts/variables' as *;
+
+
+.widget-categories {
+    padding: 35px 40px 40px;
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.05);
+    @media #{$xs}{
+      padding: 25px 20px 30px;
+    }
+    @media #{$sm}{
+      padding: 35px 40px 40px;
+    }
+  }
+  .service-sidebar .widget-title {
+    font-size: 26px;
+    margin-bottom: 20px;
+    line-height: 1.4;
+    @media #{$xs}{
+      font-size: 24px;
+    }
+    @media #{$sm}{
+      font-size: 26px;
+    }
+  }
+  .widget-content ul li a {
+    height: 60px;
+    line-height: 60px;
+    background: #eee;
+    padding: 0 25px;
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--clr-body-heading);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    &:hover {
+        background-color: var(--clr-theme-primary);
+        color: #fff;
+        i {
+          color: #fff;
+        }
+    }
+    @media #{$xs}{
+      padding: 0 20px;
+      font-size: 16px;
+    }
+    @media #{$sm}{
+      padding: 0 25px;
+      font-size: 18px;
+    }
+  }
+  .widget-content ul li:not(:last-child) {
+    margin-bottom: 20px;
+  }
+  .widget-content ul li a i {
+    font-size: 20px;
+    color: var(--clr-body-heading);
+    @include transition(.3s);
+  }
+  .widget-help {
+    padding: 35px 40px 40px;
+    background: var(--clr-theme-primary);
+    @media #{$xs}{
+      padding: 25px 20px 30px;
+    }
+    @media #{$sm}{
+      padding: 35px 40px 40px;
+    }
+  }
+  .widget-help .widget-title {
+    color: #fff;
+    margin-bottom: 10px;
+  }
+  .widget-text {
+    color: #fff;
+    font-size: 16px;
+    margin-bottom: 25px;
+  }
+  .phone-number {
+    color: #fff;
+    font-size: 18px;
+    display: block;
+    margin-bottom: 25px;
+    &:hover {
+        color: #fff;
+    }
+  }
+  .phone-number i {
+    margin-right: 10px;
+  }
+  .theme-btn.service-widget-btn {
+    background: #fff;
+    color: var(--clr-theme-primary);
+    width: 100%;
+    text-align: start;
+    justify-content: space-between;
+    padding: 0 35px;
+    &:hover {
+        background-color: var(--clr-body-heading);
+        color: #fff;
+    }
+  }
+  .widget-download {
+    padding: 35px 40px 40px;
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.05);
+    @media #{$xs}{
+      padding: 25px 20px 30px;
+    }
+    @media #{$sm}{
+      padding: 35px 40px 40px;
+    }
+  }
+  .widget-content .download-btn {
+    width: 100%;
+    height: 60px;
+    line-height: 60px;
+    display: block;
+    background: #eee;
+    margin-bottom: 20px;
+    padding: 0 25px;
+    color: var(--clr-body-heading);
+    font-size: 18px;
+    font-weight: 600;
+    &:last-child {
+        margin-bottom: 0;
+    }
+    &:hover {
+        background-color: var(--clr-theme-primary);
+        color: #fff;
+    }
+    @media #{$xs}{
+      padding: 0 20px;
+      font-size: 16px;
+    }
+    @media #{$sm}{
+      padding: 0 25px;
+      font-size: 18px;
+    }
+  }
+
+  .widget-content .download-btn i {
+	margin-right: 10px;
+}
+
+// service details 
+
+
+.service-details-middle {
+    display: flex;
+    gap: 30px;
+    align-items: center;
+    @media #{$xs}{
+      flex-direction: column;
+    }
+  }
+  .service-details-single-img {
+
+  }
+  .service-details-middle-content {
+
+  }
+  .service-details-middle-content ul li {
+    font-size: 16px;
+    margin-bottom: 5px;
+    &:last-child {
+        margin-bottom: 0;
+    }
+  }
+  .service-details-middle-content ul li i {
+    margin-right: 10px;
+    color: var(--clr-theme-primary);
+  }
+  .service-details-text {
+    color: var(--clr-body-text);
+    font-size: 16px;
+    margin-bottom: 20px;
+  }
+
+
+.service-details-title {
+	font-size: 32px;
+  list-style: 1.2;
+  @media #{$xs} {
+    font-size: 28px;
+  }
+}
+.service-details-img {
+	height: 450px;
+  @media #{$md}{
+    height: 390px;
+  }
+  @media #{$xs}{
+    height: 160px;
+  }
+  @media #{$sm}{
+    height: 290px;
+  }
+}
+.service-details-img iframe {
+	width: 100%;
+	height: 100%;
+}
+.service-details-main.ml-40 {
+  @media #{$xl} {
+    margin-left: 20px;
+  }
+  @media #{$lg, $md, $xs} {
+    margin-left: 0;
+  }
+}
+.service-sidebar .widget-title {
+  position: relative;
+  padding-left: 15px;
+  &::before {
+    position: absolute;
+    left: 0;
+    top: 7px;
+    content: '';
+    width: 4px;
+    height: 20px;
+    background: var(--clr-theme-primary);
+}
+}
+.widget-help .widget-title {
+  padding-left: 0;
+  &::before {
+    display: none;
+  }
+}
