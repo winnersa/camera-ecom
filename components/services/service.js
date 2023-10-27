@@ -1,6 +1,6 @@
 import Link from 'next/link';
 
-const Service = ({countStart, countEnd, bgLight=true, servicedata}) => {
+const Service = ({ bgLight=true}) => {
   return (
     <>
       {/* <!-- service area start --> */}
