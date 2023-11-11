@@ -6,6 +6,7 @@ import BreadCrumbOne from '../components/breadcrumb/breadcrumb-1'
  import ProductOne from '../components/product/product-1'
 import { useQuery } from 'react-query';
 import {PRODUCT_LIST} from "../data/constants";
+import axios from "axios";
 
 const ShopOne = (props) => {
    const { data } = useQuery({
@@ -17,8 +18,8 @@ const ShopOne = (props) => {
   return (
     <React.Fragment>
         <HeaderOne/>
-        <Seo title={"Shop"} />
-        <BreadCrumbOne title={"Shop"}/>
+        <Seo title={"Camera"} />
+        <BreadCrumbOne title={"Camera"}/>
         <main>
         {/* shop area start */}
             <section>
@@ -61,8 +62,8 @@ const ShopOne = (props) => {
 }
 
 const getProducts = async () => {
-    const response = await fetch(PRODUCT_LIST);
-    const data = await response.json();
+    const response = await axios.get(PRODUCT_LIST);
+    const data = await response.data;
     return data.data.map(item => item);
 }
 

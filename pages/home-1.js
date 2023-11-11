@@ -44,12 +44,7 @@ const HomeOne = (props) => {
             <Seo title={"Home"}/>
             <main>
                 <SliderOne/>
-                <About/>
-                {/*<Service servicedata={servicelist} countStart={2} countEnd={8}/>*/}
-                {/*<SkillOne/>*/}
-                {/*<VideoOne servicelist={servicelist}/>*/}
                 <ProductSection productData={productlist}/>
-                <BlogOne bloglist={bloglist} count={3}/>
                 <SubscribeOne/>
             </main>
             <FooterOne/>
@@ -60,11 +55,7 @@ const getServices = async () => {
     const servicdata = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/servicelist`);
     return await servicdata.json()
 }
-// const getProducts = async () => {
-//   const products = await fetch(PRODUCT_LIST);
-//     const data = await products.json();
-//     return data.data
-// }
+
 
 const getProducts = async () => {
     const response = await fetch(PRODUCT_LIST);

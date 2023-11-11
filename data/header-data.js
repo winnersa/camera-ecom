@@ -5,8 +5,8 @@ const HeaderNav = [
         "hasChild": false
     },
     {
-        "title": "Shop",
-        "slug": "/shop",
+        "title": "Camera",
+        "slug": "/camera",
         "hasChild": false,
 
     },
@@ -16,17 +16,6 @@ const HeaderNav = [
         "hasChild": false,
     },
 
-    {
-        "title": "About",
-        "slug": "/about-1",
-        "hasChild": false
-    },
-    {
-        "title": "News",
-        "slug": "/blog",
-        "hasChild": false,
-
-    },
     {
         "title": "Contact",
         "slug": "/contact",

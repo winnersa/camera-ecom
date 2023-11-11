@@ -49,7 +49,7 @@ const Cart = () => {
                 <div className="cart-area pt-120 pb-120">
                     <div className="container">
                         <div className="row">
-                            <div className="col-xxl-8 col-xl-8 col-lg-8 mb-30 mb-lg-0">
+                            <div className="col-xxl-8  col-lg-8 mb-30 mb-lg-0">
                                 <div className="shopping-cart-table mb-20 wow fadeInUp" data-wow-delay="0.3s">
                                     <table className="table">
                                         <thead>
@@ -151,43 +151,9 @@ const Cart = () => {
                                 <div className="cart-actions wow fadeInUp" data-wow-delay="0.5s">
 
                                     <button className="theme-btn" onClick={() => {
-                                        clearCart()
+                                        clearCart(cartList)
                                     }} type="submit">Clear Cart
                                     </button>
-                                </div>
-                            </div>
-                            <div className="col-xxl-4 col-xl-4 col-lg-4">
-                                <div className="pl-40 cart-widget-left-space wow fadeInUp" data-wow-delay="0.7s">
-                                    <div className="cart-total-box-2">
-                                        <h4 className="title">Cart Totals</h4>
-                                        <ul>
-                                            <li><span className="label">Subtotal</span> <span
-                                                className="price">${subtotal && subtotal}</span></li>
-                                            <li>
-                                                <span className="label">Shipping</span>
-                                                <select className='shipping'>
-                                                    <option>Free Shipping</option>
-                                                    <option>Premium</option>
-                                                </select>
-                                            </li>
-                                            <li><span className="label">Total</span> <span
-                                                className="price total-price">${subtotal && subtotal}</span></li>
-                                            <li className="has-cart-checkout-list-form-style">
-
-                                                {
-                                                    Object.keys(cart).length == 0 ? (
-                                                        <Link href={'/signin'}
-                                                              className="cart-checkout-form-btn theme-btn mt-40"
-                                                              type="submit">Sign in</Link>
-                                                    ) : (<Link href={'/checkout'}
-                                                               className="cart-checkout-form-btn theme-btn mt-40"
-                                                               type="submit">Checkout</Link>)
-                                                }
-
-
-                                            </li>
-                                        </ul>
-                                    </div>
                                 </div>
                             </div>
                         </div>

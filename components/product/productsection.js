@@ -11,7 +11,7 @@ const ProductSection = ({productData}) => {
                 <div className="container">
                     <div className="row">
                         <div className="col-12">
-                            <SectionTitleCenter subtitle="Camera Shop" title='Security Cameras shop'/>
+                            <SectionTitleCenter subtitle="Camera" title='Security Cameras'/>
                         </div>
                     </div>
                     <ProductOne productData={productData} count={3}/>

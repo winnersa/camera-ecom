@@ -3,8 +3,6 @@ import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
 import Link from 'next/link';
 import {SIGN_IN} from "../../data/constants";
-import {Message_data} from "../../context/context";
-import {useContext} from "react";
 import {useRouter} from "next/router";
 
 const SigninSchema = Yup.object().shape({
@@ -14,7 +12,6 @@ const SigninSchema = Yup.object().shape({
 
 const Signin = () => {
 
-    const { setUser } = useContext(Message_data);
     const router = useRouter();
 
     return (
@@ -52,11 +49,9 @@ const Signin = () => {
 
                                             await router.push('/');
                                             toast.success("Signed In Successfully!");
-                                            // Here, you'd probably want to do something with the returned JWT token,
-                                            // like storing it in local storage or in a cookie for further authenticated requests.
+
                                             localStorage.setItem('token', data.jwt);
                                             localStorage.setItem('user', data.user.id);
-                                            // Redirect or do something else depending on your needs.
                                         } else {
                                             toast.error(data.message[0].messages[0].message || "Sign-in failed!");
                                         }

@@ -1,4 +1,4 @@
-import React, {useContext, useState} from 'react'
+import React, {useContext, useEffect, useState} from 'react'
 import Nav from 'react-bootstrap/Nav';
 import Tab from 'react-bootstrap/Tab';
 import Link from 'next/link';
@@ -10,14 +10,31 @@ import Seo from '../seo/seo';
 import HeaderOne from '../../components/header/header-1';
 import FooterOne from '../../components/footer/footer-1';
 import {BASE_URL, prependBaseUrl} from "../../data/constants";
+import {FaStar} from 'react-icons/fa';
 
 
-const Id = ({productId,product, reviews}) => {
-    const {addToCart, cart} = useContext(Message_data);
+const Id = ({productId, product, reviews}) => {
+    const {addToCart, cart, submitReview} = useContext(Message_data);
     const [quantityCount, setquantityCount] = useState(1);
     const [reviewsToShow, setReviewsToShow] = useState(3);
     const [isExpanded, setIsExpanded] = useState(false);
+    const [rating, setRating] = useState(0);
+    const [comment, setComment] = useState('');
+    const [hover, setHover] = useState(null);
+    //
+    // useEffect(() => {
+    //     fetchReviews(productId);
+    // }, []);
+    //
+    // const fetchReviews = async (productId) => {
+    //     await fetch(`${BASE_URL}/api/reviews?populate=*&filters[product][id][$eq]=${productId}`);
+    // }
 
+    const handleReviewSubmit = async (e) => {
+        e.preventDefault();
+        submitReview(productId, rating, comment);
+        // await fetchReviews(productId);
+    };
     const handleToggleReviews = () => {
         if (isExpanded) {
             setReviewsToShow(3);
@@ -140,6 +157,14 @@ const Id = ({productId,product, reviews}) => {
                                                 <Link href="#">{product.model && product.model}</Link>
                                             </span>
                                         </span>
+                                            <span className="shop-product-meta-cat shop-meta-item">
+                                            Model:
+                                            <span className="shop-meta-info">
+                                                <Link href="#">{product.line && product.line}</Link>
+                                            </span>
+                                        </span>
+
+
                                         </div>
                                     </div>
                                 </div>
@@ -239,71 +264,69 @@ const Id = ({productId,product, reviews}) => {
                                                                     </button>
                                                                 ) : null}
                                                             </div>
+                                                            <div>
+                                                                <form onSubmit={handleReviewSubmit}>
+                                                                    <div className="required-field">
+                                                                        <h4 className="shop-details-review-title mb-10">
+                                                                            Review</h4>
+                                                                    </div>
+                                                                    <div className="shop-review">
+                                                                        <span>Your Rating</span>
+                                                                        <div className="shop-review-rating">
+                                                                            {[...Array(5)].map((_, index) => {
+                                                                                const ratingValue = index + 1;
+                                                                                return (
+                                                                                    <label key={ratingValue}>
+                                                                                        <input
+                                                                                            type="radio"
+                                                                                            name="rating"
+                                                                                            value={ratingValue}
+                                                                                            onClick={() => setRating(ratingValue)}
+                                                                                            style={{display: 'none'}}
+                                                                                        />
+                                                                                        <FaStar
+                                                                                            className="star"
+                                                                                            color={ratingValue <= (hover || rating) ? "#ffc107" : "#e4e5e9"}
+                                                                                            onMouseEnter={() => setHover(ratingValue)}
+                                                                                            onMouseLeave={() => setHover(null)}
+                                                                                            size={24}
+                                                                                        />
+                                                                                    </label>
+                                                                                );
+                                                                            })}
+                                                                        </div>
+                                                                    </div>
+                                                                    <div className="submit-form-default">
+                                                                        <div className="row">
+                                                                            <div className="col-xl-12 col-lg-12">
+                                                                                <div
+                                                                                    className="shop-submit-form-default-single">
+                                                                            <textarea
+                                                                                name="review"
+                                                                                id="review"
+                                                                                className="review"
+                                                                                placeholder="Your review"
+                                                                                value={comment}
+                                                                                onChange={(e) => setComment(e.target.value)}
+                                                                            ></textarea>
+                                                                                </div>
+                                                                            </div>
 
-                                                            <div className="required-field">
-                                                                <h4 className="shop-details-review-title mb-10">
-                                                                    Review</h4>
-                                                            </div>
-                                                            <div className="shop-review">
-                                                                <span>Your Rating</span>
-                                                                <div className="shop-review-rating">
-                                                                    <i className="fas fa-star"></i>
-                                                                    <i className="fas fa-star "></i>
-                                                                    <i className="fas fa-star "></i>
-                                                                    <i className="fas fa-star "></i>
-                                                                    <i className="fas fa-star"></i>
-                                                                </div>
-                                                            </div>
-                                                            <div className="submit-form-default">
-                                                                <div className="row">
-
-                                                                    <div className="col-xl-6 col-lg-6 col-md-6">
-                                                                        <div
-                                                                            className="shop-submit-form-default-single">
-                                                                            <input type="text" id="name"
-                                                                                   className="name" placeholder="Name"/>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div className="col-xl-6 col-lg-6 col-md-6">
-                                                                        <div
-                                                                            className="shop-submit-form-default-single">
-                                                                            <input type="text" id="email"
-                                                                                   className="email"
-                                                                                   placeholder="Email"/>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div className="col-xl-12 col-lg-12">
-                                                                        <div
-                                                                            className="shop-submit-form-default-single">
-                                                                            <textarea name="review" id="review"
-                                                                                      className="review"
-                                                                                      placeholder="Your review"></textarea>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div className="col-xl-12 col-lg-12">
-                                                                        <div
-                                                                            className="shop-submit-form-default-single mb-20">
-                                                                            <div className="condition-box">
-                                                                                <input type="checkbox" id="condition"
-                                                                                       className="has-condition condition"/>
-                                                                                <label htmlFor="condition"
-                                                                                       className="condition">Save my
-                                                                                    name, email, and website for the
-                                                                                    next time.</label>
+                                                                            <div className="col-xl-12 col-lg-12">
+                                                                                <div
+                                                                                    className="shop-submit-form-default-single">
+                                                                                    <button type="submit"
+                                                                                            className="shop-submit-form-default-single-btn theme-btn"
+                                                                                    >Submit
+                                                                                        Review
+                                                                                    </button>
+                                                                                </div>
                                                                             </div>
                                                                         </div>
                                                                     </div>
-                                                                    <div className="col-xl-12 col-lg-12">
-                                                                        <div
-                                                                            className="shop-submit-form-default-single">
-                                                                            <button type="submit"
-                                                                                    className="shop-submit-form-default-single-btn theme-btn">Submit
-                                                                                Review
-                                                                            </button>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
+                                                                </form>
                                                             </div>
+
                                                         </div>
                                                     </Tab.Pane>
                                                 </Tab.Content>

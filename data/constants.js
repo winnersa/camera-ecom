@@ -1,5 +1,5 @@
 
-export const BASE_URL = "http://localhost:3001"
+export const BASE_URL = "http://206.189.46.201:31000"
 
 export const SIGN_UP = BASE_URL + "/api/auth/local/register";
 
