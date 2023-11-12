@@ -11,7 +11,6 @@ const ProductOne = ({productData, count}) => {
     const loaderProp = ({src}) => {
         return src
     }
-    console.log(count)
     return (
         <>
             <ToastContainer
