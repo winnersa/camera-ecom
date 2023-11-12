@@ -25,6 +25,7 @@
     "react-modal-video": "^2.0.0",
     "react-query": "^3.39.3",
     "react-toastify": "^9.1.1",
+    "sass": "^1.69.5",
     "swiper": "^8.4.7",
     "yup": "^0.32.11"
   }

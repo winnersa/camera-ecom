@@ -1,17 +1,20 @@
 # Step 1: Build the Next.js application
-FROM node:14 AS builder
+FROM node:18-alpine AS build
 WORKDIR /app
+
+# Install dependencies
 COPY package*.json ./
 RUN npm install
-COPY . .
-RUN npm run build
 
-# Step 2: Serve the application using a Node.js server
-FROM node:14
-WORKDIR /app
-COPY --from=builder /app/next.config.js ./
-COPY --from=builder /app/public ./public
-COPY --from=builder /app/.next ./.next
-COPY --from=builder /app/node_modules ./node_modules
+# Copy source code (assuming your source code is in the same directory as your Dockerfile)
+COPY . .
+
+# Expose the port the app runs on
 EXPOSE 3000
-CMD ["npm", "start"]
+
+# Set environment variables (if any)
+ENV PORT 3000
+ENV HOSTNAME localhost
+
+# Start the application in development mode
+CMD ["npm", "run", "dev"]
