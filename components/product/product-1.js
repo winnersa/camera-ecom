@@ -11,6 +11,7 @@ const ProductOne = ({productData, count}) => {
     const loaderProp = ({src}) => {
         return src
     }
+    console.log(count)
     return (
         <>
             <ToastContainer
@@ -27,7 +28,7 @@ const ProductOne = ({productData, count}) => {
             />
             <div className="row">
                 {
-                    productData && productData.filter(item => item.id <= count).sort((a, b) => a.id - b.id).map((item, id) => (
+                    productData && productData.filter(item => item.id).sort((a, b) => a.id - b.id).map((item, id) => (
                         <div key={id} className="col-xl-4 col-lg-4 col-md-6">
                             <div className="shop-item mb-40 wow fadeInUp" data-wow-delay="0.3s">
                                 <div className="shop-img w_img">

@@ -158,7 +158,7 @@ const Id = ({productId, product, reviews}) => {
                                             </span>
                                         </span>
                                             <span className="shop-product-meta-cat shop-meta-item">
-                                            Model:
+                                            Line:
                                             <span className="shop-meta-info">
                                                 <Link href="#">{product.line && product.line}</Link>
                                             </span>

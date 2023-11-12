@@ -15,6 +15,7 @@ const ShopOne = (props) => {
       initialData: props.products,
     })
 
+
   return (
     <React.Fragment>
         <HeaderOne/>
