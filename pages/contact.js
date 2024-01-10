@@ -9,8 +9,8 @@ const Contact = () => {
   return (
     <React.Fragment>
         <HeaderOne/>
-        <Seo title={"Contact"} />
-        <BreadCrumbOne title={"Contact"}/>
+        <Seo title={"Camera need"} />
+        <BreadCrumbOne title={"Camera need"}/>
         <main>
             <ContactOne/>
         </main>

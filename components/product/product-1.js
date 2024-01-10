@@ -10,7 +10,8 @@ const ProductOne = ({productData, count}) => {
 
     const loaderProp = ({src}) => {
         return src
-    }
+    };
+
     return (
         <>
             <ToastContainer
@@ -58,20 +59,14 @@ const ProductOne = ({productData, count}) => {
                                 </div>
 
                                 <div className="shop-content">
-                                        {[...Array(5)].map((_, index) => {
-                                            if (index < item.attributes.averageRating) {
-                                                return <i key={index} className="fas fa-star"></i>
-                                            } else {
-                                                return <i key={index} className="fal fa-star"></i>
-                                            }
-                                        })}
+                            
 
                                     <h3 className="shop-content-title">
                                         <Link
                                             href={`/product/${item.id && item.id}`}>{item.attributes.title && item.attributes.title}</Link>
                                     </h3>
                                     <div className="shop-content-price">
-                                        <h5 className="price">${item.attributes.price && item.attributes.price}</h5>
+                                        <h5 className="price">{item.attributes.price && item.attributes.price}Baht</h5>
                                     </div>
                                 </div>
 

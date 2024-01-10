@@ -1,26 +1,28 @@
-import React, {useContext, useEffect, useState} from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import Nav from 'react-bootstrap/Nav';
 import Tab from 'react-bootstrap/Tab';
 import Link from 'next/link';
-import {toast, ToastContainer} from 'react-toastify';
-import {Message_data} from '../../context/context';
+import { toast, ToastContainer } from 'react-toastify';
+import { Message_data } from '../../context/context';
 import Image from 'next/image';
 import BreadCrumbOne from '../../components/breadcrumb/breadcrumb-1';
 import Seo from '../seo/seo';
 import HeaderOne from '../../components/header/header-1';
 import FooterOne from '../../components/footer/footer-1';
-import {BASE_URL, prependBaseUrl} from "../../data/constants";
-import {FaStar} from 'react-icons/fa';
+import { BASE_URL, prependBaseUrl } from "../../data/constants";
+import { FaStar } from 'react-icons/fa';
 
 
-const Id = ({productId, product, reviews}) => {
-    const {addToCart, cart, submitReview} = useContext(Message_data);
-    const [quantityCount, setquantityCount] = useState(1);
+const Id = ({ productId, product, reviews }) => {
+    const { addToCart, submitReview, user } = useContext(Message_data);
+    const [quantityCount, setQuantityCount] = useState(1);
     const [reviewsToShow, setReviewsToShow] = useState(3);
     const [isExpanded, setIsExpanded] = useState(false);
     const [rating, setRating] = useState(0);
     const [comment, setComment] = useState('');
     const [hover, setHover] = useState(null);
+    const [userHasSubmittedReview, setUserHasSubmittedReview] = useState(false);
+    const [availableStock, setAvailableStock] = useState(product.stock || 0);
     //
     // useEffect(() => {
     //     fetchReviews(productId);
@@ -32,8 +34,17 @@ const Id = ({productId, product, reviews}) => {
 
     const handleReviewSubmit = async (e) => {
         e.preventDefault();
+
+        if (userHasSubmittedReview) {
+            toast.error("You have already submitted a review for this product.");
+            return;
+        }
+
+        // Continue with the review submission logic
         submitReview(productId, rating, comment);
-        // await fetchReviews(productId);
+
+        // Update the user's review status
+        setUserHasSubmittedReview(true);
     };
     const handleToggleReviews = () => {
         if (isExpanded) {
@@ -45,28 +56,41 @@ const Id = ({productId, product, reviews}) => {
     };
 
     const incrementQty = () => {
-        setquantityCount(quantityCount + 1);
-        toast.success('Quantity Updated Successfully!');
-    }
-    const decrementQty = () => {
-        if (quantityCount < 2) {
-            setquantityCount(1);
-            toast.warn("Please is too law!");
-        } else {
-            setquantityCount(quantityCount - 1);
+        if (quantityCount < availableStock) {
+            setQuantityCount(quantityCount + 1);
             toast.success('Quantity Updated Successfully!');
+        } else {
+            toast.warn("Exceeded available stock!");
         }
     }
 
-    const loaderProp = ({src}) => {
+    const decrementQty = () => {
+        if (quantityCount > 1) {
+            setQuantityCount(quantityCount - 1);
+            toast.success('Quantity Updated Successfully!');
+        } else {
+            toast.warn("Quantity cannot be less than 1!");
+        }
+    }
+
+    const loaderProp = ({ src }) => {
         return src
     }
 
+    const calculateAverageRating = () => {
+        if (reviews.length === 0) {
+            return 0; // Default to 0 if there are no reviews
+        }
+
+        const totalRating = reviews.reduce((sum, review) => sum + review.attributes.rating, 0);
+        return totalRating / reviews.length;
+    };
+
     return (
         <React.Fragment>
-            <HeaderOne/>
-            <Seo title={product.title && product.title}/>
-            <BreadCrumbOne title={product.title && product.title}/>
+            <HeaderOne />
+            <Seo title={product.title && product.title} />
+            <BreadCrumbOne title={product.title && product.title} />
             <main>
                 {/* <!-- shop details start --> */}
                 <section>
@@ -89,9 +113,9 @@ const Id = ({productId, product, reviews}) => {
                                     <div className="shop-details-img w_img mb-40 wow fadeInLeft" data-wow-delay="0.3s">
 
                                         <Image width={530} height={653.05}
-                                               src={product.image && product.image.data[0] && product.image.data[0].attributes.url ? prependBaseUrl(product.image.data[0].attributes.url) : '/default-image-path.jpg'}
-                                               alt={product.image && product.image.data[0] && product.image.data[0].attributes.alternativeText ? product.image.data[0].attributes.alternativeText : 'Product Image'}
-                                               loader={loaderProp}
+                                            src={product.image && product.image.data[0] && product.image.data[0].attributes.url ? prependBaseUrl(product.image.data[0].attributes.url) : '/default-image-path.jpg'}
+                                            alt={product.image && product.image.data[0] && product.image.data[0].attributes.alternativeText ? product.image.data[0].attributes.alternativeText : 'Product Image'}
+                                            loader={loaderProp}
 
                                         />
                                     </div>
@@ -99,35 +123,33 @@ const Id = ({productId, product, reviews}) => {
                                 <div className="col-xl-6 col-lg-6">
                                     <div className="shop-details-content ml-40 mb-40">
                                         {product.title && <h3 className="shop-details-content-title wow fadeInUp"
-                                                              data-wow-delay="0.3s">{product.title}</h3>}
+                                            data-wow-delay="0.3s">{product.title}</h3>}
                                         <div className="shop-details-review wow fadeInUp" data-wow-delay="0.4s">
                                             <div className="shop-details-rating">
                                                 {[...Array(5)].map((_, index) => {
-                                                    if (index < product.averageRating) {
-                                                        return <i key={index} className="fas fa-star"></i>
+                                                    const calculatedRating = calculateAverageRating();
+                                                    if (index < calculatedRating) {
+                                                        return <i key={index} className="fas fa-star" style={{ color: 'orange' }}></i>;
                                                     } else {
-                                                        return <i key={index} className="fal fa-star"></i>
+                                                        return <i key={index} className="fal fa-star" style={{ color: 'orange' }}></i>;
                                                     }
                                                 })}
                                             </div>
                                             <span className="shop-details-review-text">({reviews.length} Customer Reviews)</span>
                                         </div>
                                         <div className="shop-details-price wow fadeInUp" data-wow-delay="0.5s">
-                                            <span>{`$${product.price && product.price}`} {product.oldprice &&
-                                                <del>${product.oldprice}</del>}</span>
+                                            <span>{`${product.price && product.price}`}Bath </span>
                                         </div>
                                         {product.description &&
                                             <p className="shop-details-text wow fadeInUp" data-wow-delay="0.6s">
                                                 {product.description}
                                             </p>}
-                                        <div className="shop-details-cart-action-wrap wow fadeInUp"
-                                             data-wow-delay="0.7s">
+                                        <div className="shop-details-cart-action-wrap wow fadeInUp" data-wow-delay="0.7s">
                                             <div className="single-product-quantity-box">
                                                 <form action="#">
                                                     <Link href="#0" className="minus" onClick={decrementQty}><i
                                                         className="fal fa-minus"></i></Link>
-                                                    <input type="text" readOnly name="quantity"
-                                                           value={quantityCount && quantityCount}/>
+                                                    <input type="text" readOnly name="quantity" value={quantityCount} />
                                                     <Link href="#0" className="plus" onClick={incrementQty}><i
                                                         className="fal fa-plus"></i></Link>
                                                 </form>
@@ -145,24 +167,24 @@ const Id = ({productId, product, reviews}) => {
                                             </Link>
                                         </div>
                                         <div className="shop-product-meta">
-                                        <span className="shop-product-meta-sku shop-meta-item">
-                                            Brand:
-                                            <span className="shop-meta-info">
-                                                <Link href="#">{product.brand && product.brand}</Link>
+                                            <span className="shop-product-meta-sku shop-meta-item">
+                                                Brand:
+                                                <span className="shop-meta-info">
+                                                    <Link href="#">{product.brand && product.brand}</Link>
+                                                </span>
                                             </span>
-                                        </span>
                                             <span className="shop-product-meta-cat shop-meta-item">
-                                            Model:
-                                            <span className="shop-meta-info">
-                                                <Link href="#">{product.model && product.model}</Link>
+                                                Model:
+                                                <span className="shop-meta-info">
+                                                    <Link href="#">{product.model && product.model}</Link>
+                                                </span>
                                             </span>
-                                        </span>
                                             <span className="shop-product-meta-cat shop-meta-item">
-                                            Line:
-                                            <span className="shop-meta-info">
-                                                <Link href="#">{product.line && product.line}</Link>
+                                                Line:
+                                                <span className="shop-meta-info">
+                                                    <Link href={product.line && product.line}>{product.line && product.line}</Link>
+                                                </span>
                                             </span>
-                                        </span>
 
 
                                         </div>
@@ -193,19 +215,19 @@ const Id = ({productId, product, reviews}) => {
                                                                     <table
                                                                         className="table  table-bordered table-striped  table-responsive">
                                                                         <thead className="table-dark">
-                                                                        <tr>
-                                                                            <th>Feature</th>
-                                                                            <th>Desc</th>
-                                                                            {/*<th>Value</th>*/}
-                                                                        </tr>
+                                                                            <tr>
+                                                                                <th>Feature</th>
+                                                                                <th>Desc</th>
+                                                                                {/*<th>Value</th>*/}
+                                                                            </tr>
                                                                         </thead>
                                                                         <tbody>
-                                                                        {Object.keys(product.features).map((key, index) => (
-                                                                            <tr key={index}>
-                                                                                <td className="text-capitalize">{key.replace(/([A-Z])/g, ' $1').trim()}</td>
-                                                                                <td>{product.features[key].toString()}</td>
-                                                                            </tr>
-                                                                        ))}
+                                                                            {Object.keys(product.features).map((key, index) => (
+                                                                                <tr key={index}>
+                                                                                    <td className="text-capitalize">{key.replace(/([A-Z])/g, ' $1').trim()}</td>
+                                                                                    <td>{product.features[key].toString()}</td>
+                                                                                </tr>
+                                                                            ))}
                                                                         </tbody>
                                                                     </table>
                                                                 ) : (
@@ -222,10 +244,10 @@ const Id = ({productId, product, reviews}) => {
                                                             <div className="shop-details-review-box-wrap">
                                                                 {reviews.slice(0, reviewsToShow).map(review => (
                                                                     <div key={review.id}
-                                                                         className="shop-details-review-box-single">
+                                                                        className="shop-details-review-box-single">
                                                                         <div className="shop-review-thumb">
                                                                             <img src="/assets/img/shop/author.jpg"
-                                                                                 alt="Image Not Found"/>
+                                                                                alt="Image Not Found" />
                                                                         </div>
                                                                         <div className="shop-review-content">
                                                                             <div className="reviewer-info">
@@ -233,10 +255,10 @@ const Id = ({productId, product, reviews}) => {
                                                                                     {[...Array(5)].map((_, index) => {
                                                                                         if (index < review.attributes.rating) {
                                                                                             return <i key={index}
-                                                                                                      className="fas fa-star"></i>
+                                                                                                className="fas fa-star" style={{ color: 'orange' }}></i>
                                                                                         } else {
                                                                                             return <i key={index}
-                                                                                                      className="fal fa-star"></i>
+                                                                                                className="fal fa-star" style={{ color: 'orange' }}></i>
                                                                                         }
                                                                                     })}
                                                                                 </div>
@@ -282,7 +304,7 @@ const Id = ({productId, product, reviews}) => {
                                                                                             name="rating"
                                                                                             value={ratingValue}
                                                                                             onClick={() => setRating(ratingValue)}
-                                                                                            style={{display: 'none'}}
+                                                                                            style={{ display: 'none' }}
                                                                                         />
                                                                                         <FaStar
                                                                                             className="star"
@@ -301,14 +323,14 @@ const Id = ({productId, product, reviews}) => {
                                                                             <div className="col-xl-12 col-lg-12">
                                                                                 <div
                                                                                     className="shop-submit-form-default-single">
-                                                                            <textarea
-                                                                                name="review"
-                                                                                id="review"
-                                                                                className="review"
-                                                                                placeholder="Your review"
-                                                                                value={comment}
-                                                                                onChange={(e) => setComment(e.target.value)}
-                                                                            ></textarea>
+                                                                                    <textarea
+                                                                                        name="review"
+                                                                                        id="review"
+                                                                                        className="review"
+                                                                                        placeholder="Your review"
+                                                                                        value={comment}
+                                                                                        onChange={(e) => setComment(e.target.value)}
+                                                                                    ></textarea>
                                                                                 </div>
                                                                             </div>
 
@@ -316,7 +338,7 @@ const Id = ({productId, product, reviews}) => {
                                                                                 <div
                                                                                     className="shop-submit-form-default-single">
                                                                                     <button type="submit"
-                                                                                            className="shop-submit-form-default-single-btn theme-btn"
+                                                                                        className="shop-submit-form-default-single-btn theme-btn"
                                                                                     >Submit
                                                                                         Review
                                                                                     </button>
@@ -340,12 +362,12 @@ const Id = ({productId, product, reviews}) => {
                 </section>
                 {/* <!-- shop details end --> */}
             </main>
-            <FooterOne/>
+            <FooterOne />
         </React.Fragment>
     )
 }
 export const getServerSideProps = async (context) => {
-    const {id} = context.params;
+    const { id } = context.params;
     const product = await getProductById(id);
     const reviewRes = await fetch(`${BASE_URL}/api/reviews?populate=*&filters[product][id][$eq]=${id}`);
     const reviewData = await reviewRes.json();
@@ -354,8 +376,8 @@ export const getServerSideProps = async (context) => {
         props: {
             productId: id,
             product: product.attributes,
-            reviews: reviewData.data
-        }
+            reviews: reviewData.data,
+        },
     }
 }
 

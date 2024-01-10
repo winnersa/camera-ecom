@@ -103,7 +103,7 @@ const Cart = () => {
                                                             </td>
                                                             {cart[item].attributes.product.data.attributes.price && <td>
                                                                 <div className="product-cart-price">
-                                                                    <span>${cart[item].attributes.product.data.attributes.price}</span>
+                                                                    <span>{cart[item].attributes.product.data.attributes.price}ฺBaht</span>
                                                                 </div>
                                                             </td>}
                                                             <td>
@@ -130,7 +130,7 @@ const Cart = () => {
                                                             </td>
                                                             <td>
                                                                 <div className="product-cart-price">
-                                                                    {singleSubtotal && <span>${singleSubtotal}</span>}
+                                                                    {singleSubtotal && <span>{singleSubtotal}Baht</span>}
                                                                 </div>
                                                             </td>
                                                             <td>

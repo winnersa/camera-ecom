@@ -8,7 +8,7 @@ const HeaderOne = () => {
       {/* <!-- header area start --> */}
         <header>
             <div className="header-area">
-                <Topbar/>
+               
                 <MiddleHeader/>
                 <NagigationOne/>
                 <MobileSidebar/>

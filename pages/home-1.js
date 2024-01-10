@@ -43,7 +43,7 @@ const HomeOne = (props) => {
             <HeaderOne/>
             <Seo title={"Home"}/>
             <main>
-                <SliderOne/>
+                
                 <ProductSection productData={productlist}/>
                 <SubscribeOne/>
             </main>

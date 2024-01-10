@@ -18,21 +18,24 @@ const MiddleHeader = () => {
                 <div className="container">
                     <div className="middle-wrap">
                         <div className="logo">
+                             {/*icon*/}
                             <Link href="/">
-                                <img className="logo-1" src="/assets/img/logo/logo.png" alt="Image Not Found"/>
+                                <img className="logo-2" src="/assets/img/logo/logo.png" alt="Image Not Found"/>
                             </Link>
                         </div>
                         <div className="middle-info d-none d-lg-flex">
                             <div className="single-item">
                                 <div className="icon">
                                     <i className="fal fa-home"></i>
+                                     {/*Phone*/}
                                 </div>
                                 <div className="info">
-                                    <span>Onsfe Shop, TH</span>
-                                    <Link className="info-content" href="tel:+02110111 ">+02110111</Link>
+                                    <span>WATACHI, CCTV Compare</span>
+                                    <Link className="info-content" href="tel:+02110111 ">+0859032837</Link>
                                 </div>
                             </div>
                             <div className="single-item">
+                                 {/*Work*/}
                                 <div className="icon">
                                     <i className="fal fa-clock"></i>
                                 </div>
@@ -42,13 +45,14 @@ const MiddleHeader = () => {
                                 </div>
                             </div>
                             <div className="single-item">
+                                 {/*Email*/}
                                 <div className="icon">
                                     <i className="fal fa-envelope"></i>
                                 </div>
                                 <div className="info">
-                                    <span>Get in Touch</span>
+                                    <span>Gmail</span>
                                     <Link className="info-content"
-                                          href="mailto:example@mail.com">example@gmail.com</Link>
+                                          href="mailto:example@mail.com">karavinamd@Gmail.com</Link>
                                 </div>
                             </div>
 

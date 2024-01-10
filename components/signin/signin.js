@@ -4,6 +4,9 @@ import * as Yup from 'yup';
 import Link from 'next/link';
 import {SIGN_IN} from "../../data/constants";
 import {useRouter} from "next/router";
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
+import React, { useState } from 'react';
+
 
 const SigninSchema = Yup.object().shape({
     email: Yup.string().email('Invalid email').required('Required'),
@@ -13,6 +16,8 @@ const SigninSchema = Yup.object().shape({
 const Signin = () => {
 
     const router = useRouter();
+    const [showPassword, setShowPassword] = useState(false);
+
 
     return (
         <>
@@ -78,31 +83,43 @@ const Signin = () => {
                                             theme="light"
                                         />
                                         <Form>
-                                            <div className="mb-3">
+                                            <div className="mb-3 d-flex flex-column">
                                                 <label htmlFor="email" className="form-label">Email Address</label>
                                                 <Field type="email" name='email' className="form-control" />
                                                 {errors.email && touched.email && <div className='alert alert-danger mt-2'>{errors.email}</div>}
                                             </div>
 
-                                            <div className="mb-3">
-                                                <label htmlFor="password" className="form-label">Password</label>
-                                                <Field type="password" name='password' className="form-control" />
-                                                {errors.password && touched.password && <div className='alert alert-danger mt-2'>{errors.password}</div>}
+                                            <div className="mb-3 d-flex flex-column">
+                                                <label htmlFor="password" className="form-label">
+                                                    Password
+                                                    <div className="input-group">
+                                                        <Field
+                                                            type={showPassword ? 'text' : 'password'}
+                                                            name='password'
+                                                            className="form-control"
+                                                        />
+                                                        <span className="input-group-text" onClick={() => setShowPassword(!showPassword)}>
+                                                            {showPassword ? <FaEyeSlash /> : <FaEye />}
+                                                        </span>
+                                                    </div>
+                                                    {errors.password && touched.password && (
+                                                        <div className='alert alert-danger mt-2'>{errors.password}</div>
+                                                    )}
+                                                </label>
                                             </div>
 
                                             <div className="d-grid">
                                                 <button type='submit' className="btn btn-primary">Sign In</button>
                                             </div>
 
-                                            <div className="d-grid">
-
-                                            <Link href="/signup" className="text-primary text-center mt-3 text-decoration-underline">
-                                                Don't have an account?
-                                            </Link>
+                                            <div className="d-flex align-items-center">
+                                                
+                                                <Link href="/signup" className="text-primary text-center mt-3 ms-auto text-decoration-underline">
+                                                    Don't have an account?
+                                                </Link>
                                             </div>
-
-
                                         </Form>
+
                                     </>
                                 )}
                             </Formik>
